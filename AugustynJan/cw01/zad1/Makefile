@@ -1,17 +1,23 @@
-GCC = gcc -O0 -Wall -std=c17 -ggdb
-GCCF = gcc -Wall
-LIB_NAME = wc_lib
+GCC=gcc -O0 -Wall -std=c17 -ggdb
+CCF=gcc -Wall
+
 all:
-	make static_lib
-	make shared_lib
+	make wc_lib.o
+	make wc_lib.so
 
-static_lib $(LIB_NAME).c:
-	$(GCCF) -c $(LIB_NAME).c
-	ar cr $(LIB_NAME).a $(LIB_NAME).o
+# static
+wc_lib.o: wc_lib.c wc_lib.h
+	$(CCF) -c wc_lib.c
+	ar cr wc_lib.a wc_lib.o
 
-shared_lib $(LIB_NAME).c:
-	$(GCCF) -c -fPIC $(LIB_NAME).c
-	$(GCCF) -shared -o $(LIB_NAME).so $(LIB_NAME).o
+# shared
+wc_lib.so: wc_lib.c wc_lib.h
+	$(CCF) -c -fPIC wc_lib.c
+	$(CCF) -shared -o wc_lib.so wc_lib.o
+
+# test
+library_test: library_test.c wc_lib.o
+	$(CCF) -o $@ $^
 
 clean:
-	rm -f *.o *.a *.so *.gch
+	rm -f *.o *.a *.so library_test
