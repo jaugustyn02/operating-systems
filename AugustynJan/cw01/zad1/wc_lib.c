@@ -38,6 +38,8 @@ char* get_file_content(char* file_path){
 
 // 2) runs wc on given file and saves output in a new block memory
 void Memory_add(Memory *memory, char* filename){
+    if(memory->size == memory->capacity) return;
+
     char *command = (char*)malloc(COMMAND_BUFF_SIZE * sizeof(char));
     sprintf(command, "wc -lwm %s 1> %s 2> /dev/null", filename, TEMP_FILE_FULL_PATH);
     system(command);
