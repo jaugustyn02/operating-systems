@@ -1,4 +1,4 @@
-#include "wc_lib.h"
+#include "libwc.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -7,7 +7,6 @@
 #include <fcntl.h>
 
 
-// 1) returns new initialized memory
 Memory Memory_create(size_t capacity){
     Memory memory;
     memory.tab = calloc(capacity, sizeof (char*));
@@ -18,7 +17,7 @@ Memory Memory_create(size_t capacity){
 
 // helper functions
 long get_file_size(int fd){
-    long f_size = lseek(fd, 0, SEEK_END);   // finding file length
+    long f_size = lseek(fd, 0, SEEK_END);   // finding file size
     lseek(fd, 0, SEEK_SET);                 // fixing file pointer
     return f_size;
 }
@@ -34,9 +33,8 @@ char* get_file_content(char* file_path){
 }
 // ends
 
-// 2) runs wc on given file and saves result in a new memory block
 void Memory_add(Memory *memory, char* filename){
-    if(memory->size == memory->capacity) return;
+    if(memory->size >= memory->capacity) return;
 
     char *command = (char*)malloc(COMMAND_BUFF_SIZE * sizeof(char));
     sprintf(command, "wc -lwm %s 1> %s 2> /dev/null", filename, TEMP_FILE_FULL_PATH);
@@ -49,13 +47,11 @@ void Memory_add(Memory *memory, char* filename){
     sprintf(command, "rm -f %s 2> /dev/null", TEMP_FILE_FULL_PATH);
 }
 
-// 3) returns value of memory block at the given index
 char* Memory_get(Memory *memory, size_t index){
     if(index >= memory->size) return "";
     return memory->tab[index];
 }
 
-// 4) removes memory block at the given index and shifts all the pointers on the right side one place towards left
 void Memory_remove(Memory *memory, size_t index){
     if(index >= memory->size) return;
 
@@ -66,7 +62,6 @@ void Memory_remove(Memory *memory, size_t index){
     memory->tab[memory->size] = NULL;
 }
 
-// 5) frees all blocks of memory
 void Memory_clear(Memory *memory){
     for(int i = 0; i < memory->capacity; i++){
         free(memory->tab[i]);

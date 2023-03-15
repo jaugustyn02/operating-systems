@@ -1,0 +1,12 @@
+>>>> << Times: Real=0.000018 s | User=0.000000 s | System=0.000016 s 
+>>>> << Times: Real=0.000169 s | User=0.000000 s | System=0.000169 s 
+>>>> << Times: Real=0.000150 s | User=0.000000 s | System=0.000152 s 
+>>>>   77  263 2275 libwc.c
+<< Times: Real=0.000006 s | User=0.000000 s | System=0.000006 s 
+>>>>  190  568 5481 repl.c
+<< Times: Real=0.000002 s | User=0.000000 s | System=0.000002 s 
+>>>> << Times: Real=0.000005 s | User=0.000000 s | System=0.000005 s 
+>>>> << Times: Real=0.000001 s | User=0.000000 s | System=0.000002 s 
+>>>> << Times: Real=0.000002 s | User=0.000000 s | System=0.000003 s 
+>>>> << Program ends
+<< Times: Real=0.000003 s | User=0.000000 s | System=0.000003 s 

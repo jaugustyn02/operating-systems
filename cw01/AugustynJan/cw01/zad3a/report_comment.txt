@@ -1,0 +1,4 @@
+Wyniki testów wykazują, że najkrótszy czas wykonywania się procesów występuje w bibliotece ładowanej dynamiczne,
+jednakże różnica uzyskanych czasów względem biblioteki dzielonej jest bardzo mała. Pomimo, że dane testowe nie są
+wystarczająco duże, by móc jednoznacznie określić najoptymalniejszy wariant biblioteki, to jednak można zauważyć
+odstające od reszty wyniki biblioteki statycznej.

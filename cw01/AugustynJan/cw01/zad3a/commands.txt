@@ -1,0 +1,9 @@
+init 2
+count libwc.c
+count repl.c
+show 0
+show 1
+delete 1
+delete 0
+destroy
+q

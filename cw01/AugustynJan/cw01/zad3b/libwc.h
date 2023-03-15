@@ -1,7 +1,7 @@
 #include <stddef.h>
 
-#ifndef WC_LIB_H
-#define WC_LIB_H
+#ifndef LIBWC_H
+#define LIBWC_H
 
 #define COMMAND_BUFF_SIZE 1024
 #define TEMP_FILE_FULL_PATH "/tmp/wc_lib.temp"
@@ -24,8 +24,8 @@ char* Memory_get(Memory *memory, size_t index);
 // 4) removes block of memory at the given index
 void Memory_remove(Memory *memory, size_t index);
 
-// frees all blocks of memory
+// frees array
 void Memory_clear(Memory *memory);
 
-#endif //WC_LIB_H
+#endif //LIBWC_H
 

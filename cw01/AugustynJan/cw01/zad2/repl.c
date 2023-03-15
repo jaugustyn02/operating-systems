@@ -6,30 +6,26 @@
 #include <sys/resource.h>
 
 #ifdef DYNAMIC
-    #include "wc_lib_dynamic.h"
+    #include "libwc_dynamic.h"
 #else
-    #include "wc_lib.h"
+    #include "libwc.h"
 #endif
 
+#include "dll_handler.h"
+
+#define LIB_FILE_PATH "libwc.so"
 #define INPUT_BUFF_SIZE 1024
 #define FILE_NAME_SIZE 256
 #define ERROR_MSG_SIZE 256
-
-char* error_msg;
-bool stop_program = 0;
+#define SUCCESS 0
+#define FAILURE 1
 
 Memory memory;
+char* error_msg;
+bool stop_program = 0;
 bool array_initialized = 0;
 
-clock_t ct_start, ct_end;
-struct rusage ru_start, ru_stop;
-// time measurement
-//typedef struct{
-
-    // 3 diff timers
-    // 1 function to start watch
-//     3 functions to end watch
-//}Stopwatch;
+// Commands handler
 
 typedef enum {
     init,       // init size - create new array with size 'size'
@@ -138,12 +134,17 @@ void execute_command(Command command){
                 Memory_clear(&memory);
             break;
         case invalid:
-            printf("<< Error: %s\n", error_msg);
+            fprintf(stderr, "<< Error: %s\n", error_msg);
             break;
     }
 }
 
-void print_times(){
+// Time measurement
+
+clock_t ct_start, ct_end;
+struct rusage ru_start, ru_stop;
+
+void print_times(void){
     double real_time, user_time, system_time;
 
     real_time = (double) (ct_end - ct_start) / CLOCKS_PER_SEC;
@@ -155,10 +156,16 @@ void print_times(){
     printf("<< Times: Real=%lf s | User=%lf s | System=%lf s \n", real_time, user_time, system_time);
 }
 
-int main(int argc, char **argv){
+int main(void){
     Command command;
     error_msg = malloc(ERROR_MSG_SIZE * sizeof(char));
     char* input_buff = malloc(INPUT_BUFF_SIZE * sizeof(char));
+
+    #ifdef DYNAMIC
+        if(load_symbols(LIB_FILE_PATH) != SUCCESS)
+            return FAILURE;
+    #endif
+
     do{
         printf(">>>> ");
         fgets(input_buff, INPUT_BUFF_SIZE, stdin);
@@ -175,5 +182,10 @@ int main(int argc, char **argv){
         getrusage(RUSAGE_SELF, &ru_stop);
         print_times();
     }while(stop_program == 0);
-    return 0;
+
+    #ifdef DYNAMIC
+        free_handle();
+    #endif
+
+    return SUCCESS;
 }

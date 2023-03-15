@@ -1,0 +1,3 @@
+Z otrzymanych wyników można zaobserować, że zwiększony poziom optymalizacji nieznacznie zmiejsza czas wykonywania się
+operacji. Oczywiście dane testowe nie są wystarczająco duże, aby wyniki były mariodajne oraz żeby można było z nich
+wyciągać sensowne wnioski.
