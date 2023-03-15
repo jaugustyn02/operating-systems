@@ -1,5 +1,4 @@
 #include "wc_lib.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -10,7 +9,7 @@
 
 // 1) returns new initialized memory
 Memory Memory_create(size_t capacity){
-    Memory memory; //= malloc(sizeof (Memory));
+    Memory memory;
     memory.tab = calloc(capacity, sizeof (char*));
     memory.size = 0;
     memory.capacity = capacity;
@@ -19,7 +18,7 @@ Memory Memory_create(size_t capacity){
 
 // helper functions
 long get_file_size(int fd){
-    long f_size = lseek(fd, 0, SEEK_END);   // finding bytes length
+    long f_size = lseek(fd, 0, SEEK_END);   // finding file length
     lseek(fd, 0, SEEK_SET);                 // fixing file pointer
     return f_size;
 }
@@ -27,7 +26,6 @@ long get_file_size(int fd){
 char* get_file_content(char* file_path){
     if(access(file_path, R_OK) != 0)
         return "";
-
     int fd = open(file_path, O_RDONLY);
     long f_size = get_file_size(fd);
     char* f_buff = calloc(f_size, sizeof(char));
@@ -36,7 +34,7 @@ char* get_file_content(char* file_path){
 }
 // ends
 
-// 2) runs wc on given file and saves output in a new block memory
+// 2) runs wc on given file and saves result in a new memory block
 void Memory_add(Memory *memory, char* filename){
     if(memory->size == memory->capacity) return;
 
@@ -57,7 +55,7 @@ char* Memory_get(Memory *memory, size_t index){
     return memory->tab[index];
 }
 
-// 4) removes block of memory at given index and shifts all the pointers to its right one place towards left
+// 4) removes memory block at the given index and shifts all the pointers on the right side one place towards left
 void Memory_remove(Memory *memory, size_t index){
     if(index >= memory->size) return;
 

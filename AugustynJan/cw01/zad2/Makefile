@@ -15,8 +15,8 @@ wc_lib.so: wc_lib.c wc_lib.h
 	$(CCF) -shared -o wc_lib.so wc_lib.o
 
 # repl
-wc_repl: wc_repl.c wc_lib.o
-	$(CCF) -o wc_repl wc_repl.c wc_lib.o
+repl: repl.c wc_lib.o
+	$(CCF) -o repl repl.c wc_lib.o
 
 clean:
-	rm -f *.o *.a *.so wc_repl
+	rm -f *.o *.a *.so repl

@@ -1,7 +1,7 @@
 #include <stddef.h>
 
-#ifndef ZAD1_WC_LIB_H
-#define ZAD1_WC_LIB_H
+#ifndef WC_LIB_H
+#define WC_LIB_H
 
 #define COMMAND_BUFF_SIZE 1024
 #define TEMP_FILE_FULL_PATH "/tmp/wc_lib.temp"
@@ -27,5 +27,5 @@ void Memory_remove(Memory *memory, size_t index);
 // frees all blocks of memory
 void Memory_clear(Memory *memory);
 
-#endif //ZAD1_WC_LIB_H
+#endif //WC_LIB_H
 
