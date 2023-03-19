@@ -1,0 +1,20 @@
+reverse.exe binary_file tmp1
+Real time: 0.070794 s
+User time: 0.045666 s
+System time: 0.025118 s 
+
+reverse.exe tmp1 tmp2
+Real time: 0.062874 s
+User time: 0.040782 s
+System time: 0.022091 s 
+
+reverse1024.exe binary_file tmp1
+Real time: 0.007474 s
+User time: 0.007084 s
+System time: 0.000390 s 
+
+reverse1024.exe tmp1 tmp2
+Real time: 0.009973 s
+User time: 0.008887 s
+System time: 0.001084 s 
+

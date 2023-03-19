@@ -1,0 +1,10 @@
+tr_lib.exe
+Real time: 0.000599 s
+User time: 0.000000 s
+System time: 0.000596 s 
+
+tr_sys.exe
+Real time: 0.005981 s
+User time: 0.000000 s
+System time: 0.005980 s 
+

@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <dlfcn.h>
 
+#include "libwc_dynamic.h"
+
 #define LIB_FILENAME "libwc.so"
 #define SUCCESS 0
 #define FAILURE 1

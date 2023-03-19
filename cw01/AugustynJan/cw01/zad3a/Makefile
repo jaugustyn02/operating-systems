@@ -21,7 +21,8 @@ repl_static.exe: repl.c libwc.c
 	$(CCF) -o $@ $< libwc.a
 
 repl_shared.exe: repl.c libwc.c
-	$(CCF) -o $@ $< libwc.so -lwc
+	#$(CCF) -o $@ $< libwc.so -lwc
+	$(CCF) -o $@ $< libwc.so -lwc -L. -Wl,-rpath,.
 
 repl_dynamic.exe: repl.c libwc.c
 	$(CCF) -o $@ $< -ldl -DDYNAMIC
