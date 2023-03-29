@@ -1,0 +1,2 @@
+W zadaniu 1, z pomiarów czasu wynika, że wariant z użyciem funkcji systemowych jest co najmniej 10 krotnie wolniejszy od wariantu z użyciem funkcji biblioteki.
+W zadaniu 2, wyniki pomiarów czasu wskazują na zauważalną przewagę wariantu czytającego bloki 1024 znakowe nad wariantem czytającym po 1 znaku. Może to być spowodowane znacząco mniejszą liczbą wywoływań funkcji fread() and fwrite() w wariancie blokowym.

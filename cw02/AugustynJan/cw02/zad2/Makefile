@@ -22,11 +22,15 @@ test: reverse.exe reverse1024.exe
 	./reverse1024.exe tmp1 tmp2
 	diff -s tmp2 binary_file
 
-test2:
-	#tac < input_file | rev > output_file
-    #./reverse.exe input_file tmp3
-    #./reverse.exe tmp3 tmp4
-    #diff -s tmp4 output_file
+rev_test: reverse.exe
+	./reverse.exe input_file tmp3
+	./reverse.exe tmp3 tmp4
+	diff -s tmp4 input_file
+
+rev1024_test: reverse1024.exe
+	./reverse1024.exe input_file tmp3
+	./reverse1024.exe tmp3 tmp4
+	diff -s tmp4 input_file
 
 clean:
 	rm -f *.o *.exe tmp* output_file

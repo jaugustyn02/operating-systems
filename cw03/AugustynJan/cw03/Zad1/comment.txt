@@ -1,0 +1,3 @@
+Program tworzy argv[1] procesów potomnych, które wypisują na standardowe wyjście pid macierzyste i swoje własne.
+Dzięki użyciu funkcji systemowej wait program dopiero po zakończeniu wykonywania się wszystkich procesów potomnych
+wypisuje argv[1].

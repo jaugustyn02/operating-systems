@@ -1,0 +1,2 @@
+W poniższych zadaniach zaimplementowane programy korzystały z możliwości tworzenia nowych procesów (funkcja fork),
+możliwości uruchamiania programów w danym procesie (exec) i pobierania informacji o danych procesach, jak np. pid.

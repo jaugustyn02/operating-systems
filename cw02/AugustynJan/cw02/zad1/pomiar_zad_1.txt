@@ -1,10 +1,10 @@
 tr_lib.exe
-Real time: 0.000599 s
+Real time: 0.000411 s
 User time: 0.000000 s
-System time: 0.000596 s 
+System time: 0.000410 s 
 
 tr_sys.exe
-Real time: 0.005981 s
+Real time: 0.006781 s
 User time: 0.000000 s
-System time: 0.005980 s 
+System time: 0.006779 s 
 

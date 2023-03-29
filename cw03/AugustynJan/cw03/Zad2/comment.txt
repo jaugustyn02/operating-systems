@@ -1,0 +1,2 @@
+Program najpierw dzięki zwolnieniu bufora stdout wypisuje na standardowe wyjście swoją nazwę. Po czym uruchamia program
+/bin/ls z argumentem argv[1] z wykorzystaniem execl.

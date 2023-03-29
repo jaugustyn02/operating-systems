@@ -1,0 +1,3 @@
+Program przyjmuje 2 argumenty: ścieżkę katalogu i łańcuch znaków. Następnie przechodzi rekurencyjnie po podkatalogach
+i przegląda, czy pliki możliwe do odczytu zaczynają się od podanego ciągu. Jeżeli tak, to wypisuje jego ścieżkę i pid
+procesu, który przeglądał dany katalog.

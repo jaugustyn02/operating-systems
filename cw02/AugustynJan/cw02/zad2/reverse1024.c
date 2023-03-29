@@ -41,6 +41,7 @@ int main(int argc, char* argv[]){
     fclose(dest_file);
 
     time_end();
+
     char* file_name = "reverse1024.exe";
     char* top_text = malloc((strlen(file_name)+ strlen(argv[1]) + strlen(argv[2]) + 3)*sizeof(char));
     sprintf(top_text, "%s %s %s", file_name, argv[1], argv[2]);
