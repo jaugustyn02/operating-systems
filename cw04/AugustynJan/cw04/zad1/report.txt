@@ -1,0 +1,1 @@
+Po wygenerowaniu wyników obu wariantów: fork i exec, możemy zauważyć, że programy różnią się wynikami testowania pendingu sygnałów. W wariancie z fork(), w procesie potomnym nie zauważamy sygnału czekającego na odblokowanie, natomiast w wariancie exec, w procesie zauważamy oczekujący sygnał.

@@ -1,0 +1,2 @@
+W pierwszym zadaniu, warianty programów różniły się wynikami testowania pendingu.
+Natomiast, w zadaniu trzecim czasami dochodzi do zjawiska "gubienia sygnału", tak jak jest to opisane w treści zadania.

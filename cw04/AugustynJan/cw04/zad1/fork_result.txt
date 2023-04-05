@@ -1,0 +1,15 @@
+Testing ignore:
+PID: 159854 - raising SIGUSR1
+PID: 159855 - raising SIGUSR1
+Testing handler:
+PID: 159857 - raising SIGUSR1
+Received signal SIGUSR1 (10)
+PID: 159858 - raising SIGUSR1
+Received signal SIGUSR1 (10)
+Testing mask:
+PID: 159860 - raising SIGUSR1
+PID: 159861 - raising SIGUSR1
+Testing pending:
+PID: 159863 - raising SIGUSR1
+PID: 159863 - signal SIGUSR1 is pending
+PID: 159864 - Signal SIGUSR1 is not pending

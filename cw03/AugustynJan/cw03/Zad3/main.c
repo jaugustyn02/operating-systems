@@ -7,7 +7,8 @@
 #include <dirent.h>
 #include <errno.h>
 #include <sys/stat.h>
-#include<fcntl.h>
+#include <fcntl.h>
+#include <sys/wait.h>
 
 
 #define SUCCESS 0
@@ -59,15 +60,16 @@ void read_directory(char* path, char* search_str){
             perror("Stat");
             continue;
         }
-        if(S_ISDIR(stat_buf.st_mode)){
+        if(S_ISDIR(stat_buf.st_mode)) {
             // file is a directory
             pid_t pid = fork();
-            if (pid == -1){
+            if (pid == -1) {
                 perror("Fork");
                 exit(FAILURE);
             }
-            if (pid == 0){
+            if (pid == 0) {
                 read_directory(new_path, search_str);
+                while (wait(NULL) > 0);
                 exit(SUCCESS);
             }
         }
@@ -85,6 +87,7 @@ void read_directory(char* path, char* search_str){
         perror("Closedir");
         exit(FAILURE);
     }
+
 }
 
 int main(int argc, char* argv[]){
@@ -103,6 +106,9 @@ int main(int argc, char* argv[]){
     }
 
     read_directory(dir_path, search_str);
+
+    while(wait(NULL) > 0);
+    fflush(stdout);
 
     return SUCCESS;
 }
