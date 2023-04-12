@@ -3,10 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//int received_confirmation = 0;
-
 void sig_handler(int signum, siginfo_t *info, void *context){
-//    received_confirmation = 1;
     printf("Received confirmation\n");
 }
 
@@ -22,7 +19,6 @@ int main(int argc, char *argv[]) {
         printf("Usage: sender <catcher_pid> <mode1> [<mode2> ...]\n");
         return 1;
     }
-
     pid_t catcher_pid = atoi(argv[1]);
 
     struct sigaction act;

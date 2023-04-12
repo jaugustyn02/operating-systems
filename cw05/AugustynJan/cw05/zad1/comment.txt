@@ -1,0 +1,2 @@
+Program poprzez użycie funkcji popen(): wysyła mail lub wypisuje posortowane maile ze skrzynki odbiorczej.
+Niestety miałem problemy z przeprowadzeniem odpowiednich testów programu poprzez problemy ze skonfigurowaniem poczty na moim urządzeniu.

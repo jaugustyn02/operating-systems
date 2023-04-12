@@ -44,6 +44,6 @@ int main(int argc, char* argv[]){
     sprintf(top_text, "%s %s %s", file_name, argv[1], argv[2]);
     printf("%s", top_text);
     write_time("pomiar_zad_2.txt", top_text, "", 1);
-
+//    free(top_text);
     return SUCCESS;
 }

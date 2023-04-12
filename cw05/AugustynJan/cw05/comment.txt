@@ -1,0 +1,1 @@
+Porównując wyniki obu wersji programów (Zad 2 i 3), możemy zauważyć, że operacje całkowania wykonuje nieznacznie szybciej wersja z potokiem nienazwanym. Ciężko stwierdzić, co faktycznie wpływa na tą lekką różnicę czasu, albowiem programy różnią się nie tylko rodzajami potoków.

@@ -1,0 +1,15 @@
+./integral_exec.exe 0.00001 5000
+Elapsed time: 1.406842 s
+
+./integral_exec.exe 0.000005 7000
+Elapsed time: 2.754831 s
+
+./integral_exec.exe 0.000001 6000
+Elapsed time: 5.269423 s
+
+./integral_exec.exe 0.0000005 5000
+Elapsed time: 7.137181 s
+
+./integral_exec.exe 0.2 5
+Elapsed time: 0.015973 s
+

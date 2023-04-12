@@ -1,0 +1,12 @@
+./integral_fork.exe 0.00001 5000
+Elapsed time: 1.068278 s
+
+./integral_fork.exe 0.000005 7000
+Elapsed time: 2.089726 s
+
+./integral_fork.exe 0.000001 6000
+Elapsed time: 4.410409 s
+
+./integral_fork.exe 0.0000005 5000
+Elapsed time: 6.218820 s
+

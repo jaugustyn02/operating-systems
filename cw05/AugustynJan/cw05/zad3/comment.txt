@@ -1,0 +1,1 @@
+W pliku makefile przygotowane zostało pare bardziej wymagających testów programu. Możemy zaobserwować, że razem z otrzymywanym lepszym przybliżeniem liczby pi (czyli dokładnego wyniku) program potrzebuje znacząco więcej czasu na wykonanie obliczeń.
