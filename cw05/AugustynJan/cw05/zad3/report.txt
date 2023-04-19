@@ -13,3 +13,9 @@ Elapsed time: 7.137181 s
 ./integral_exec.exe 0.2 5
 Elapsed time: 0.015973 s
 
+./integral_exec.exe 0.2 10
+Elapsed time: 0.063807 s
+
+./integral_exec.exe 0.2 10
+Elapsed time: 0.005783 s
+
