@@ -1,7 +1,7 @@
 #ifndef CW06_COMMON_H
 #define CW06_COMMON_H
 #include <sys/msg.h>
-#include <sys/ipc.h>
+#include <mqueue.h>
 
 #define MSG_TEXT_SIZE 1024
 
@@ -13,9 +13,9 @@
 #define MESSAGE_ONE 5
 
 // queue config
-#define KEY_PATH_ENV "HOME"
-#define SERVER_KEYGEN_NUM 1
-#define CLIENT_KEYGEN_NUM_RANGE 200
+#define SERVER_MQ_NAME "/SERVER"
+#define CLIENT_MQ_NAME_LEN 4
+#define MAX_CLIENTS 10
 
 typedef struct {
     long mtype;       // typ komunikatu

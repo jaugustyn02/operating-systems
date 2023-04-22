@@ -4,49 +4,46 @@
 #include <signal.h>
 #include <string.h>
 #include <time.h>
+
 #include "common.h"
 
-#define MAX_CLIENTS 10
 #define MSG_FILENAME "messages.txt"
 
 FILE *msg_file;
 
-int msqid;  // servers msg qid
+mqd_t server_mq;
 int clients_num = 0; // num of connected clients
-int client_msqids[MAX_CLIENTS]; // array of connected client qids
+char *client_mq_names[MAX_CLIENTS]; // array of connected client mq names
 
 
 void INIT_handler(msg_buf msg){
-    key_t client_key = (key_t) msg.value;
-    int client_msqid = msgget(client_key, 0666 | IPC_CREAT);
-    msg_buf response;
-    response.mtype = INIT;
-
+    printf("Received INIT from client %s\n", msg.text);
     if (clients_num < MAX_CLIENTS) {
         // Find free client ID
         int new_client_id;
         for (new_client_id = 0; new_client_id < MAX_CLIENTS; new_client_id++){
-            if (client_msqids[new_client_id] == -1)
+            if (client_mq_names[new_client_id] == NULL)
                 break;
         }
         if (new_client_id == MAX_CLIENTS){
             printf("Error: cannot find free client ID\n");
             return;
         }
-        response.value = new_client_id;
-        strcpy(response.text, "");
+        msg.value = new_client_id;
 
         // Add client
-        client_msqids[new_client_id] = client_msqid;
+        client_mq_names[new_client_id] = (char *) calloc(CLIENT_MQ_NAME_LEN, sizeof(char));
+        strcpy(client_mq_names[new_client_id], msg.text);
         printf("New client connected with ID: %d\n", new_client_id);
         ++clients_num;
     }
     else{
-        response.value = -1;
-        strcpy(response.text, "The server has reached its maximum capacity for connected clients");
+        msg.value = -1;
         printf("The server has reached its maximum capacity for connected clients\n");
     }
-    msgsnd(client_msqid, &response, sizeof(msg_buf) - sizeof(long), 0); // Send response
+    mqd_t client_mq = mq_open(msg.text, O_RDWR);
+    mq_send(client_mq, (char *) &msg, sizeof(msg_buf), 0);
+    mq_close(client_mq);
 }
 
 void STOP_handler(msg_buf msg){
@@ -56,41 +53,45 @@ void STOP_handler(msg_buf msg){
         printf("[STOP] - Invalid client ID: %d\n", sender_id);
         return;
     }
-    if (client_msqids[sender_id] == -1){
+    if (client_mq_names[sender_id] == NULL){
         printf("[STOP] - Client %d is not connected\n", sender_id);
         return;
     }
-    client_msqids[sender_id] = -1;
+    free(client_mq_names[sender_id]);
+    client_mq_names[sender_id] = NULL;
     --clients_num;
 }
 
 
 void LIST_handler(msg_buf msg){
-    msg_buf response;
-    response.mtype = LIST;
-    strcpy(response.text, "");
+    msg.mtype = LIST;
+    strcpy(msg.text, "");
     char id[12];
     int first_client_flag = 0;
     for (int client_id = 0; client_id < MAX_CLIENTS; client_id++){
-        if(client_msqids[client_id] != -1){
+        if(client_mq_names[client_id] != NULL){
             if (first_client_flag){
-                strcat(response.text, ", ");
+                strcat(msg.text, ", ");
             }
             sprintf(id, "%d", client_id);
-            strcat(response.text, id);
+            strcat(msg.text, id);
             if (first_client_flag == 0){
                 first_client_flag = 1;
             }
         }
     }
-    msgsnd(client_msqids[msg.sender_id], &response, sizeof(msg_buf) - sizeof(long), 0);
+    mqd_t client_mq = mq_open(client_mq_names[msg.sender_id], O_WRONLY);
+    mq_send(client_mq, (char *) &msg, sizeof(msg_buf), 0);
+    mq_close(client_mq);
     printf("List of clients sent to client %d\n", msg.sender_id);
 }
 
 void MESSAGE_ALL_handler(msg_buf msg){
     for (int client_id = 0; client_id < MAX_CLIENTS; client_id++){
-        if(client_msqids[client_id] != -1 && client_id != msg.sender_id){
-            msgsnd(client_msqids[client_id], &msg, sizeof(msg_buf) - sizeof(long), 0);
+        if(client_mq_names[client_id] != NULL && client_id != msg.sender_id){
+            mqd_t client_mq = mq_open(client_mq_names[client_id], O_WRONLY);
+            mq_send(client_mq, (char *) &msg, sizeof(msg_buf), 0);
+            mq_close(client_mq);
             printf("Message from client %d sent to client %d\n", msg.sender_id, client_id);
         }
     }
@@ -102,11 +103,13 @@ void MESSAGE_ONE_handler(msg_buf msg){
         printf("[MESSAGE ONE] - Invalid client ID: %d\n", recipient);
         return;
     }
-    if (client_msqids[recipient] == -1){
+    if (client_mq_names[recipient] == NULL){
         printf("[MESSAGE ONE] - Client with ID %d is not connected\n", recipient);
         return;
     }
-    msgsnd(client_msqids[recipient], &msg, sizeof(msg_buf) - sizeof(long), 0);
+    mqd_t client_mq = mq_open(client_mq_names[recipient], O_WRONLY);
+    mq_send(client_mq, (char *) &msg, sizeof(msg_buf), 0);
+    mq_close(client_mq);
     printf("Message from client %d sent to client %d\n", msg.sender_id, recipient);
 }
 
@@ -145,54 +148,56 @@ void send_STOP(int client_id){
     msg_buf msg;
     msg.mtype = STOP;
     msg.sender_id = -1;
-    msgsnd(client_msqids[client_id], &msg, sizeof(msg_buf) - sizeof(long), 0);
+    strcpy(msg.text, "");
 
-    msg_buf response;
-    do{
-        msgrcv(msqid, &response, sizeof(msg_buf) - sizeof(long), STOP, 0);
-    }while (response.sender_id != client_id);
-    printf("Received STOP from client %d\n", response.sender_id);
-    save_msg_to_file(response);
+    mqd_t client_mq = mq_open(client_mq_names[client_id], O_WRONLY);
+    mq_send(client_mq, (char *) &msg, sizeof(msg_buf), 0);
+    mq_receive(server_mq, (char *) &msg, sizeof(msg_buf), NULL);
+    mq_close(client_mq);
+
+    printf("Received STOP from client %d\n", msg.sender_id);
+    save_msg_to_file(msg);
 }
 
 void SIGINT_handler(){
     printf("\n");
     for (int client_id=0; client_id < MAX_CLIENTS; client_id++)
-        if(client_msqids[client_id] != -1)
+        if(client_mq_names[client_id] != NULL)
             send_STOP(client_id);
 
     exit(EXIT_SUCCESS);
 }
 
 void clean_up(){
-    if (msgctl(msqid, IPC_RMID, NULL) == -1) {
+    if (mq_close(server_mq) == -1) {
         perror("msgctl");
         exit(EXIT_FAILURE);
     }
+    mq_unlink(SERVER_MQ_NAME);
     printf("Server message queue closed successfully\n");
 }
 
 
 int main() {
+    for (int i=0; i<MAX_CLIENTS; i++)
+        client_mq_names[i] = NULL;
+
+    mq_unlink(SERVER_MQ_NAME);
+    struct mq_attr attr;
+    attr.mq_maxmsg = MAX_CLIENTS;
+    attr.mq_msgsize = sizeof(msg_buf);
+    if ((server_mq = mq_open(SERVER_MQ_NAME, O_RDWR | O_CREAT | O_EXCL, 0666, &attr)) == -1) {
+        perror("mq_open");
+        exit(EXIT_FAILURE);
+    }
+    printf("Server message queue created\n");
+
     atexit(clean_up);
     signal(SIGINT, SIGINT_handler);
 
-    // initialize clients array
-    for (int i=0; i<MAX_CLIENTS; i++)
-        client_msqids[i] = -1;
-
-    // Create server msg queue
-    key_t key = ftok(getenv(KEY_PATH_ENV), SERVER_KEYGEN_NUM);
-    msqid = msgget(key, 0666 | IPC_CREAT);
-    if (msqid == -1) {
-        perror("msgget");
-        exit(EXIT_FAILURE);
-    }
-    printf("Server message queue created with ID: %d\n", msqid);
-
     msg_buf msg;
     while(1) {
-        msgrcv(msqid, &msg, sizeof(msg_buf) - sizeof(long), 0, 0);
+        mq_receive(server_mq, (char *) &msg, sizeof(msg_buf), NULL);
         switch (msg.mtype) {
             case INIT:
                 INIT_handler(msg);

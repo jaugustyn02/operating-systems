@@ -1,1 +1,6 @@
 W zadaniu 1 udało się uzyskać pełną funkcjonalność wymaganą w treści zadania.
+Serwer korzysta z kolejki o kluczu tworzonym na podstawie ścieżki katalogu domowego i klucza 1.
+Natomiast klienci korzystają z kolejki o kluczach tworzonych ze ścieżki katalogu domowego i losowej liczby z zakresu (2, 201).
+W zadaniu 2 również udało się uzyskać pełną funkcjonalność wymaganą w treści zadania.
+Serwer tworzy kolejkę, korzystając z nazwy "/SERVER".
+Natomiast klienci tworzą swoje kolejki ze znaku "/" i 3 losowo wybranych znaków z zakresu [A-Z]. np. "/ABC".
