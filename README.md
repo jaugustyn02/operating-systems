@@ -1,5 +1,5 @@
 # Systemy Operacyjne
-## zestawy zadań
+## Zestawy zadań
 - Zestaw 1 - Zarządzanie pamięcią, biblioteki, pomiar czasu
 - Zestaw 2 - Operacje na plikach i katalogach, pomiar czasu
 - Zestaw 3 - Tworzenie procesów. Środowisko procesu, sterowanie procesami
