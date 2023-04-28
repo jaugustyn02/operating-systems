@@ -1,0 +1,37 @@
+Zad. 1 (60%)
+Program przedstawia symulacje zakładu fryzjerskiego z wykorzystaniem semaforów i pamięci współdzielonej z IPC System V.
+W pliku common.h można ustawić takie parametry jak:
+- liczba fryzjerów (M)
+- liczba krzeseł w poczekalni (P)
+- liczba krzeseł do strzyżenia (N)
+- liczba dostępnych fryzur (F)
+- liczba klientów (K)
+
+Program możemy przetestować korzystając z komendy:
+```
+make test
+```
+
+Program możemy uruchomić korzystając z komendy:
+```
+./barbershop
+```
+
+Zad. 2 (40%)
+Program przedstawia symulacje zakładu fryzjerskiego z wykorzystaniem semaforów i pamięci współdzielonej z IPC POSIX.
+W pliku common.h można ustawić takie parametry jak:
+- liczba fryzjerów (M)
+- liczba krzeseł w poczekalni (P)
+- liczba krzeseł do strzyżenia (N)
+- liczba dostępnych fryzur (F)
+- liczba klientów (K)
+
+Program możemy przetestować korzystając z komendy:
+```
+make test
+```
+
+Program możemy uruchomić korzystając z komendy:
+```
+./barbershop
+```
