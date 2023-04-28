@@ -6,3 +6,4 @@
 - Zestaw 4 - Wysyłanie, odbieranie i blokowanie sygnałów, maski
 - Zestaw 5 - Potoki nienazwane, potoki nazwane, popen
 - Zestaw 6 - IPC - Kolejki komunikatów (System V, POSIX)
+- Zestaw 7 - IPC - Semafory i pamięć współdzielona (System V, POSIX)
