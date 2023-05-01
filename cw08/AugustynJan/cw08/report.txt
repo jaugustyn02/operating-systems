@@ -1,0 +1,9 @@
+Zad. 1 (70%)
+
+Program wyświetla symulację gry w życie Conway'a wykorzystując osobne wątki do obliczenia następnego stanu każdej komórki.
+Wątek główny odpowiada za wyświetlanie siatki oraz zlecanie pracy wątkom potomnym.
+
+Zad. 2 (30%)
+
+Program wyświetla symulację gry w życie Conway'a wykorzystując podaną jako argument programu liczbę osobnych wątków do obliczenia następnych stanów komórek.
+Praca rozdzielana jest maksymalnie równo pomiędzy wątkami. Wątek główny odpowiada za wyświetlanie siatki oraz zlecanie pracy wątkom potomnym.
