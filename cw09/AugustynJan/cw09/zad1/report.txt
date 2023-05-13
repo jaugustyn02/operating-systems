@@ -1,0 +1,21 @@
+Program przedstawia rozwiązanie problemu wielowątkowego Świętego Mikołaja.
+
+W problemie biorą udział (każdy w osobnym wątku):
+    - Święty Mikołaj (śpiący, rozwiązujący problemy 3 elfów lub rozwożący prezenty z 9 reniferami)
+    - 10 elfów (pracujących 2-5 sekund lub czekających na rozwiązanie problemu przez Świętego Mikołaja)
+    - 9 reniferów (będących na wakacjach 5-10 sekund lub rozwożących prezenty ze Świętym Mikołajem)
+
+Program został zaimplementowany z wykorzystaniem wątków, mechanizmów synchronizacji biblioteki POSIX threads, nienazwanych semaforów oraz warunków sprawdzających (condition variables).
+
+Testowanie programu:
+```
+    make test
+```
+
+Uruchomienie programu:
+```
+    make
+    ./santa_claus_problem
+```
+
+Przykładowy wynik programu znajduję się w pliku: "out.txt"
