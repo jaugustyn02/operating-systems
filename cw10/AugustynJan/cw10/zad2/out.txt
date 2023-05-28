@@ -1,0 +1,42 @@
+Server started with port 2137 and path './server'
+New client connected: Fagot
+New client connected: Figo
+2023-5-28 18:9:0 Figo 2
+Pinging clients...
+2023-5-28 18:9:6 Figo 0
+PONG received from Figo
+2023-5-28 18:9:6 Fagot 0
+PONG received from Fagot
+Pinging clients...
+2023-5-28 18:9:26 Figo 0
+PONG received from Figo
+2023-5-28 18:9:26 Fagot 0
+PONG received from Fagot
+Pinging clients...
+2023-5-28 18:9:46 Figo 0
+PONG received from Figo
+2023-5-28 18:9:46 Fagot 0
+PONG received from Fagot
+Pinging clients...
+2023-5-28 18:10:6 Figo 0
+PONG received from Figo
+2023-5-28 18:10:6 Fagot 0
+PONG received from Fagot
+2023-5-28 18:10:7 Figo 9 wrrrrrrr
+Pinging clients...
+2023-5-28 18:10:26 Fagot 0
+PONG received from Fagot
+2023-5-28 18:10:26 Figo 0
+PONG received from Figo
+Pinging clients...
+2023-5-28 18:10:46 Figo 0
+PONG received from Figo
+2023-5-28 18:10:46 Fagot 0
+PONG received from Fagot
+2023-5-28 18:10:55 Fagot 8 brrrrrr
+2023-5-28 18:11:1 Fagot 2
+2023-5-28 18:11:2 Fagot 1
+Deleting client: Fagot
+2023-5-28 18:11:4 Figo 6
+Deleting client: Figo
+Pinging clients...

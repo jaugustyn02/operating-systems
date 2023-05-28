@@ -1,0 +1,17 @@
+Zadanie 2 (50%)
+Komunikacja klientów i serwera odbywa się z użyciem protokołu datagramowego.
+
+Zmodyfikowane zadanie 2 zestawu 6 tak, że komunikacja pomiędzy uczestnikami czatu / klientami / klientami i serwerem realizowana jest za pośrednictwem socketów.
+
+Serwer przyjmuje jako swoje argumenty:
+
+- numer portu TCP,
+- ścieżkę gniazda UNIX
+
+Klient przyjmuje jako swoje argumenty:
+
+- swoją nazwę (string o z góry ograniczonej długości),
+- sposób połączenia z serwerem (sieć lub komunikacja lokalna przez gniazda UNIX),
+- adres serwera (adres IPv4 i numer portu lub ścieżkę do gniazda UNIX serwera)
+
+Klient przy wyłączeniu Ctrl+C odłącza się od serwera.
